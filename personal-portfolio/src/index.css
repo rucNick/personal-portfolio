@@ -1,0 +1,158 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+  --text-green: #4ade80;
+  --text-green-dim: rgba(74, 222, 128, 0.7);
+  --bg-black: #000000;
+  --border-color: rgba(74, 222, 128, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--bg-black);
+  color: var(--text-green);
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+h1, h2, h3, h4 {
+  color: var(--text-green);
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--text-green);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Layout utilities */
+.min-h-screen { min-height: 100vh; }
+.p-4 { padding: 1rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-10 { margin-bottom: 2.5rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-8 { margin-top: 2rem; }
+.mt-12 { margin-top: 3rem; }
+.mt-16 { margin-top: 4rem; }
+.ml-4 { margin-left: 1rem; }
+
+/* Flexbox */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.space-y-1 > * + * { margin-top: 0.25rem; }
+.space-y-2 > * + * { margin-top: 0.5rem; }
+.space-y-reverse { flex-direction: column-reverse; }
+
+/* Grid */
+.grid { display: grid; }
+.gap-8 { gap: 2rem; }
+
+/* Typography */
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.font-bold { font-weight: 700; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+.uppercase { text-transform: uppercase; }
+.tracking-widest { letter-spacing: 0.1em; }
+.text-center { text-align: center; }
+
+/* Colors */
+.bg-black { background-color: var(--bg-black); }
+.bg-black\/40 { background-color: rgba(0, 0, 0, 0.4); }
+.text-green-300 { color: #86efac; }
+.text-green-400 { color: var(--text-green); }
+.text-green-400\/70 { color: rgba(74, 222, 128, 0.7); }
+.text-green-400\/50 { color: rgba(74, 222, 128, 0.5); }
+.border-green-900\/40 { border-color: var(--border-color); }
+.border-green-500 { border-color: var(--text-green); }
+.border-green-500\/40 { border-color: rgba(74, 222, 128, 0.4); }
+
+/* Positioning */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.left-0 { left: 0; }
+.right-0 { right: 0; }
+.top-0 { top: 0; }
+.top-1 { top: 0.25rem; }
+.bottom-0 { bottom: 0; }
+.bottom-1 { bottom: 0.25rem; }
+.bottom-4 { bottom: 1rem; }
+.left-10 { left: 2.5rem; }
+.right-10 { right: 2.5rem; }
+
+/* Dimensions */
+.w-3 { width: 0.75rem; }
+.h-full { height: 100%; }
+.h-96 { height: 24rem; }
+
+/* Borders */
+.border { border-width: 1px; border-style: solid; }
+.rounded { border-radius: 0.25rem; }
+
+/* Others */
+.transform { transform: translateZ(0); }
+.rotate-90 { transform: rotate(90deg); }
+.origin-center { transform-origin: center; }
+.scale-105 { transform: scale(1.05); }
+.transition-transform { transition-property: transform; }
+.duration-300 { transition-duration: 300ms; }
+.cursor-pointer { cursor: pointer; }
+.overflow-y-auto { overflow-y: auto; }
+.overflow-hidden { overflow: hidden; }
+
+/* Animations */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Gradients */
+.bg-gradient-to-l {
+  background-image: linear-gradient(to left, var(--from-color), var(--to-color));
+}
+.from-green-400\/5 { --from-color: rgba(74, 222, 128, 0.05); }
+.to-transparent { --to-color: transparent; }
+
+/* Media Queries */
+@media (min-width: 1024px) {
+  .lg\:col-span-5 { grid-column: span 5 / span 5; }
+  .lg\:col-span-7 { grid-column: span 7 / span 7; }
+  .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
