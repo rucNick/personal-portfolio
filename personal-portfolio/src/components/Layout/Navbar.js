@@ -1,37 +1,44 @@
-// src/components/Layout/Navbar.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import gsap from 'gsap';
 
 const Navbar = () => {
   const location = useLocation();
-  
+
+  useEffect(() => {
+    // Animate navbar links when location changes
+    gsap.fromTo(
+      '.navbar-link',
+      { y: -20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 }
+    );
+  }, [location]);
+
   return (
-    <nav className="bg-zinc-900 border-b border-zinc-800 sticky top-0 z-10">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center py-3">
-          <div className="font-bold text-xl mr-8">
-            <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded">[RuiCao.run] $</span>
-          </div>
-          <div className="space-x-6">
-            <Link 
-              to="/" 
-              className={`${location.pathname === '/' ? 'text-green-400' : 'text-gray-400'} hover:text-green-400 transition-colors`}
-            >
-              ./home
-            </Link>
-            <Link 
-              to="/resume" 
-              className={`${location.pathname === '/resume' ? 'text-green-400' : 'text-gray-400'} hover:text-green-400 transition-colors`}
-            >
-              ./resume
-            </Link>
-            <Link 
-              to="/projects" 
-              className={`${location.pathname === '/projects' ? 'text-green-400' : 'text-gray-400'} hover:text-green-400 transition-colors`}
-            >
-              ./projects
-            </Link>
-          </div>
+    <nav className="fixed w-full backdrop-blur-md bg-black/50 border-b border-green-400/20 z-50">
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="text-2xl font-bold text-green-400">
+          [RuiCao.run] $
+        </div>
+        <div className="space-x-6">
+          <Link 
+            to="/" 
+            className={`navbar-link ${location.pathname === '/' ? 'text-green-400' : 'text-gray-400'} hover:text-green-400 transition-colors`}
+          >
+            ./home
+          </Link>
+          <Link 
+            to="/resume" 
+            className={`navbar-link ${location.pathname === '/resume' ? 'text-green-400' : 'text-gray-400'} hover:text-green-400 transition-colors`}
+          >
+            ./resume
+          </Link>
+          <Link 
+            to="/projects" 
+            className={`navbar-link ${location.pathname === '/projects' ? 'text-green-400' : 'text-gray-400'} hover:text-green-400 transition-colors`}
+          >
+            ./projects
+          </Link>
         </div>
       </div>
     </nav>
