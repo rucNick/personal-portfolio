@@ -17,7 +17,7 @@ const Skill = () => {
   return (
     <section className="section py-12">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 reveal-up">Essential Tools I use</h2>
+        <h2 className="text-3xl font-bold mb-8 reveal-up">Tools I use</h2>
         <p className="text-zinc-400 mt-3 mb-8 max-w-[50ch] reveal-up">
           Discover the powerful tools and technologies I use to create exceptional, high-performing websites and applications.
         </p>
