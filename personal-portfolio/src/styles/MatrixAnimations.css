@@ -1,0 +1,193 @@
+/* src/styles/MatrixAnimations.css */
+/* Scan line animation */
+@keyframes scanLine {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+  
+  .scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(0, 255, 0, 0.5),
+      transparent
+    );
+    animation: scanLine 3s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  /* Memory dump character flicker */
+  @keyframes characterFlicker {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  
+  .memory-character {
+    display: inline-block;
+    animation: characterFlicker 2s ease-in-out infinite;
+    animation-delay: calc(var(--character-index) * 0.1s);
+  }
+  
+  /* Memory access flash */
+  @keyframes memoryAccessFlash {
+    0%, 100% {
+      box-shadow: 0 0 0px rgba(0, 255, 0, 0);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+  }
+  
+  .memory-access-flash {
+    animation: memoryAccessFlash 2s ease-in-out;
+  }
+  
+  /* Terminal text typing animation */
+  @keyframes typeIn {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  .type-in {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typeIn 1s steps(40, end);
+  }
+  
+  /* Matrix rain column animation */
+  .matrix-rain-column {
+    position: absolute;
+    top: -100%;
+    width: 1px;
+    height: 200%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(0, 255, 0, 0),
+      rgba(0, 255, 0, 0.5),
+      rgba(0, 255, 0, 0)
+    );
+    animation: matrixRainColumn 3s linear infinite;
+  }
+  
+  @keyframes matrixRainColumn {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(50%);
+    }
+  }
+  
+  /* Stack item hover effect */
+  .stack-item {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .stack-item:hover::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(0, 255, 0, 0),
+      rgba(0, 255, 0, 0.1),
+      rgba(0, 255, 0, 0)
+    );
+    animation: stackItemScan 1s linear;
+    pointer-events: none;
+  }
+  
+  @keyframes stackItemScan {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  /* Blinking cursor animation */
+  @keyframes blinkCursor {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  
+  .cursor-blink {
+    animation: blinkCursor 0.8s infinite;
+  }
+  
+  /* Memory scan overlay */
+  .memory-scan-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 255, 0, 0.2),
+      rgba(0, 255, 0, 0)
+    );
+    pointer-events: none;
+    z-index: 10;
+    animation: memoryScan 2s ease-out;
+  }
+  
+  @keyframes memoryScan {
+    0% {
+      height: 0;
+      top: 0;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+      height: 10%;
+    }
+    100% {
+      top: 100%;
+      height: 0;
+      opacity: 0;
+    }
+  }
+  
+  /* Fix for z-index and pointer events */
+  .dark-theme .matrix-ui-overlay {
+    pointer-events: none !important;
+  }
+  
+  .dark-theme .interactive-element {
+    position: relative;
+    z-index: 5;
+  }

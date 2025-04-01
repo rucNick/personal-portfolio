@@ -5,11 +5,12 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Home from './components/Home/Home';
 import Resume from './components/Resume/Resume';
-import Projects from './components/Projects/Projects';
+import Projects from './components/Projects/Projects'; // This will be replaced by your updated file
 import Navbar from './components/Layout/Navbar';
 import Footer from './components/Layout/Footer';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import './index.css';
+import './styles/MatrixStyles.css'; // Import the Matrix styles
 
 // Register the ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -48,11 +49,44 @@ function AppContent() {
       });
     });
     
+    // Add matrix effects for dark theme
+    if (isDarkTheme) {
+      // Add scanline effect
+      if (!document.querySelector('.scanline')) {
+        const scanline = document.createElement('div');
+        scanline.className = 'scanline';
+        scanline.style.pointerEvents = 'none'; // Ensure it doesn't block scrolling
+        document.body.appendChild(scanline);
+      }
+      
+      // Add grid background effect
+      if (!document.querySelector('.grid-bg')) {
+        const gridBg = document.createElement('div');
+        gridBg.className = 'grid-bg';
+        gridBg.style.pointerEvents = 'none'; // Ensure it doesn't block scrolling
+        document.body.appendChild(gridBg);
+      }
+    } else {
+      // Remove matrix effects when switching to light theme
+      const scanline = document.querySelector('.scanline');
+      if (scanline) scanline.remove();
+      
+      const gridBg = document.querySelector('.grid-bg');
+      if (gridBg) gridBg.remove();
+    }
+    
     // Reset on component unmount
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      
+      // Clean up matrix effects
+      const scanline = document.querySelector('.scanline');
+      if (scanline) scanline.remove();
+      
+      const gridBg = document.querySelector('.grid-bg');
+      if (gridBg) gridBg.remove();
     };
-  }, [location]);
+  }, [location, isDarkTheme]);
   
   // Define theme classes based on isDarkTheme
   const themeClasses = isDarkTheme 
@@ -64,7 +98,7 @@ function AppContent() {
     : 'border-slate-200';
   
   return (
-    <div className={`min-h-screen flex flex-col transition-colors duration-500 ${themeClasses}`}>
+    <div className={`min-h-screen flex flex-col transition-colors duration-500 ${themeClasses} ${isDarkTheme ? 'crt-flicker' : ''}`}>
       <Navbar />
       
       <main className={`flex-1 container mx-auto px-4 pt-24 pb-16 ${containerClasses}`}>

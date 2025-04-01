@@ -1,0 +1,239 @@
+/* src/styles/MatrixProjects.css */
+
+/* Projects page specific styles */
+.dark-theme .projects-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  @media (min-width: 1024px) {
+    .dark-theme .projects-layout {
+      grid-template-columns: 5fr 7fr;
+    }
+  }
+  
+  /* Memory scan animation for projects */
+  .dark-theme .memory-scan {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to bottom, 
+      rgba(0, 255, 0, 0) 0%,
+      rgba(0, 255, 0, 0.5) 50%,
+      rgba(0, 255, 0, 0) 100%);
+    pointer-events: none;
+    z-index: 10;
+    animation: memory-scan 2s linear forwards;
+  }
+  
+  @keyframes memory-scan {
+    0% {
+      top: 0;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      top: 100%;
+      opacity: 0;
+    }
+  }
+  
+  /* Stack memory address styles */
+  .dark-theme .memory-address {
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(74, 222, 128, 0.5);
+    font-size: 0.75rem;
+    padding: 2px 4px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+  }
+  
+  /* Project card stack effect */
+  .dark-theme .stack-card {
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease;
+    transform-origin: center bottom;
+  }
+  
+  .dark-theme .stack-card:hover {
+    border-color: rgba(74, 222, 128, 0.8);
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.2);
+    z-index: 10;
+  }
+  
+  .dark-theme .stack-card.selected {
+    border-color: rgba(74, 222, 128, 1);
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+  }
+  
+  /* Tech tag styling */
+  .dark-theme .tech-tag {
+    background-color: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    color: rgba(74, 222, 128, 1);
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    border-radius: 2px;
+    display: inline-block;
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+  
+  /* Matrix loading effect for project details */
+  .dark-theme .matrix-loading {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .dark-theme .matrix-loading::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: rgba(74, 222, 128, 0.7);
+    animation: loading-progress 2s infinite linear;
+  }
+  
+  @keyframes loading-progress {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  /* Binary background for memory views */
+  .dark-theme .binary-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0.1;
+    z-index: 0;
+  }
+  
+  .dark-theme .binary-text {
+    position: absolute;
+    color: rgba(74, 222, 128, 0.7);
+    font-family: monospace;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  
+  /* Memory detail boxes */
+  .dark-theme .memory-detail-box {
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    background-color: rgba(0, 20, 0, 0.3);
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .dark-theme .memory-detail-box-title {
+    color: rgba(74, 222, 128, 0.8);
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  /* Hexdump styling */
+  .dark-theme .hexdump {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    padding: 8px;
+    overflow-x: auto;
+  }
+  
+  .dark-theme .hexdump-addr {
+    color: rgba(74, 222, 128, 0.5);
+    margin-right: 1rem;
+  }
+  
+  .dark-theme .hexdump-bytes {
+    color: rgba(74, 222, 128, 0.9);
+    letter-spacing: 1px;
+  }
+  
+  /* Console output styling */
+  .dark-theme .console-output {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: rgba(74, 222, 128, 1);
+    line-height: 1.5;
+  }
+  
+  .dark-theme .console-command {
+    color: rgba(74, 222, 128, 0.8);
+  }
+  
+  .dark-theme .console-success {
+    color: rgba(74, 222, 128, 1);
+    font-weight: bold;
+  }
+  
+  .dark-theme .console-warning {
+    color: rgba(255, 204, 0, 0.9);
+  }
+  
+  .dark-theme .console-error {
+    color: rgba(255, 102, 102, 0.9);
+  }
+  
+  /* Button styling */
+  .dark-theme .matrix-button {
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    background-color: rgba(0, 20, 0, 0.3);
+    color: rgba(74, 222, 128, 0.9);
+    font-family: 'JetBrains Mono', monospace;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .dark-theme .matrix-button:hover {
+    border-color: rgba(74, 222, 128, 0.8);
+    background-color: rgba(74, 222, 128, 0.2);
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
+  }
+  
+  .dark-theme .matrix-button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Section titles */
+  .dark-theme .section-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    color: rgba(74, 222, 128, 1);
+    margin-bottom: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .dark-theme .section-title::before,
+  .dark-theme .section-title::after {
+    content: "{";
+    margin-right: 0.5rem;
+  }
+  
+  .dark-theme .section-title::after {
+    content: "}";
+    margin-left: 0.5rem;
+    margin-right: 0;
+  }
