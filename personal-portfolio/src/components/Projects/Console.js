@@ -24,55 +24,69 @@ const Console = ({ consoleOutput, selectedProject }) => {
     return () => clearInterval(cursorInterval);
   }, []);
   
-  // Create memory access messages when a project is selected
-  useEffect(() => {
-    if (selectedProject && isDarkTheme) {
-      // This effect would be handled in the parent component
-      // that manages consoleOutput state
+  // Parse console message type to apply correct styling
+  const getLineClass = (line) => {
+    if (typeof line === 'string') {
+      // Default styling for string messages
+      return isDarkTheme ? 'text-green-400' : 'console-command';
     }
-  }, [selectedProject, isDarkTheme]);
-  
-  // Determine text color based on message type
-  const getTextColor = (type) => {
-    switch (type) {
-      case 'command':
-        return 'text-green-400';
+    
+    // Object messages with type
+    switch (line.type) {
       case 'success':
-        return 'text-green-400 font-bold';
+        return isDarkTheme ? 'text-green-400 font-bold' : 'console-success';
       case 'error':
-        return 'text-red-400';
+        return isDarkTheme ? 'text-red-400' : 'console-error';
       case 'warning':
-        return 'text-yellow-400';
-      case 'link':
-        return 'text-blue-400';
+        return isDarkTheme ? 'text-yellow-400' : 'console-warning';
+      case 'command':
       default:
-        return 'text-green-400';
+        return isDarkTheme ? 'text-green-400' : 'console-command';
     }
   };
   
   return (
-    <motion.div 
-      className="bg-black border border-green-500/30 rounded-md overflow-hidden shadow-lg"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      {/* Console output */}
+    <div className={isDarkTheme ? "" : "console-container"}>
+      {/* Terminal header - only in light mode */}
+      {!isDarkTheme && (
+        <div className="console-header">
+          <div className="console-controls">
+            <div className="console-window-button console-button-red"></div>
+            <div className="console-window-button console-button-yellow"></div>
+            <div className="console-window-button console-button-green"></div>
+          </div>
+          <div className="console-title">terminal@portfolio:~$</div>
+        </div>
+      )}
+      
+      {/* Console content */}
       <div 
         ref={consoleRef}
-        className="h-[500px] overflow-y-auto p-4 font-mono text-sm leading-relaxed"
+        className={isDarkTheme 
+          ? "border border-green-400/20 p-4 h-[500px] overflow-y-auto bg-black font-mono relative" 
+          : "console-content"
+        }
       >
-        {consoleOutput.map((item, index) => (
-          <div key={index} className={`${getTextColor(item.type)} mb-1 whitespace-pre-wrap`}>
-            {item.text}
-          </div>
-        ))}
-        <div className="flex items-center">
-          <span className="text-green-400 mr-2"></span>
-          <span className={`h-4 w-2 bg-green-400 ${cursorVisible ? 'opacity-100' : 'opacity-0'} transition-opacity`}></span>
+        {/* Console messages */}
+        <div className="space-y-1">
+          {consoleOutput.map((line, index) => (
+            <div key={index} className={`${isDarkTheme ? "" : "console-line"} ${getLineClass(line)}`}>
+              {typeof line === 'string' ? line : line.text}
+            </div>
+          ))}
+        </div>
+        
+        {/* Blinking cursor */}
+        <div className="flex items-center mt-1">
+          <span className={isDarkTheme ? "text-green-400 mr-2" : "text-gray-300 mr-2"}>
+            {isDarkTheme ? "" : "$"}
+          </span>
+          <span 
+            className={`h-4 w-2 ${isDarkTheme ? 'bg-green-400' : 'bg-gray-300'} ${cursorVisible ? 'opacity-100' : 'opacity-0'} transition-opacity`}
+          ></span>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

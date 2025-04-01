@@ -1,0 +1,569 @@
+/* src/styles/LightModeProjects.css */
+
+/* Light mode specific styles - to be imported in your App.js */
+.light-theme .projects-container {
+    background-color: #f9fafb;
+    color: #1f2937;
+  }
+  
+  /* Section headings with fancy styling */
+  .light-theme .section-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .light-theme .section-heading::after {
+    content: "";
+    height: 1px;
+    flex-grow: 1;
+    margin-left: 1rem;
+    background-image: linear-gradient(to right, #3b82f6, rgba(59, 130, 246, 0));
+  }
+  
+  /* Project stack styling */
+  .light-theme .stack-container {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .light-theme .stack-container:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .light-theme .stack-header {
+    background-color: #f3f4f6;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+  }
+  
+  .light-theme .stack-header::before {
+    content: "{ ";
+    color: #3b82f6;
+    margin-right: 0.25rem;
+  }
+  
+  .light-theme .stack-header::after {
+    content: " }";
+    color: #3b82f6;
+    margin-left: 0.25rem;
+  }
+  
+  /* Stack items styling */
+  .light-theme .stack-item {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .light-theme .stack-item:hover {
+    background-color: #f9fafb;
+    transform: translateY(-2px);
+  }
+  
+  .light-theme .stack-item.selected {
+    background-color: #eff6ff;
+    border-left: 3px solid #3b82f6;
+  }
+  
+  .light-theme .stack-item-title {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+  }
+  
+  .light-theme .stack-item-tech {
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+  
+  .light-theme .stack-item-memory {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 0.125rem 0.375rem;
+    background-color: #f3f4f6;
+    border-radius: 0.25rem;
+    border: 1px solid #e5e7eb;
+  }
+  
+  /* Console styling */
+  .light-theme .console-container {
+    background-color: #1e293b;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .light-theme .console-header {
+    background-color: #0f172a;
+    padding: 0.75rem 1.5rem;
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    border-bottom: 1px solid #334155;
+  }
+  
+  .light-theme .console-content {
+    padding: 1rem;
+    height: 400px;
+    overflow-y: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+  
+  .light-theme .console-line {
+    margin-bottom: 0.5rem;
+  }
+  
+  .light-theme .console-command {
+    color: #94a3b8;
+  }
+  
+  .light-theme .console-success {
+    color: #10b981;
+  }
+  
+  .light-theme .console-warning {
+    color: #f59e0b;
+  }
+  
+  .light-theme .console-error {
+    color: #ef4444;
+  }
+  
+  /* Project details styling */
+  .light-theme .project-details-container {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+  }
+  
+  .light-theme .project-details-header {
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    padding: 2rem;
+    color: white;
+    position: relative;
+  }
+  
+  .light-theme .project-details-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .light-theme .project-details-memory {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    backdrop-filter: blur(4px);
+  }
+  
+  .light-theme .project-details-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .light-theme .project-details-tech-item {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    backdrop-filter: blur(4px);
+  }
+  
+  .light-theme .project-details-content {
+    padding: 2rem;
+  }
+  
+  .light-theme .project-details-section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4b5563;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+  
+  .light-theme .project-details-description {
+    color: #4b5563;
+    border-left: 2px solid #3b82f6;
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .light-theme .project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .light-theme .project-link-primary {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .light-theme .project-link-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
+  }
+  
+  .light-theme .project-link-secondary {
+    display: inline-flex;
+    align-items: center;
+    background-color: white;
+    color: #4b5563;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s;
+  }
+  
+  .light-theme .project-link-secondary:hover {
+    border-color: #d1d5db;
+    background-color: #f9fafb;
+  }
+  
+  /* Additional project info cards */
+  .light-theme .info-card {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .light-theme .info-card-title {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .light-theme .info-card-title svg {
+    margin-right: 0.5rem;
+    color: #3b82f6;
+  }
+  
+  .light-theme .feature-list {
+    color: #4b5563;
+    font-size: 0.875rem;
+  }
+  
+  .light-theme .feature-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+  
+  .light-theme .feature-icon {
+    color: #10b981;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+  
+  /* Empty state styling */
+  .light-theme .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  
+  .light-theme .empty-state-icon {
+    width: 4rem;
+    height: 4rem;
+    color: #d1d5db;
+    margin-bottom: 1.5rem;
+  }
+  
+  .light-theme .empty-state-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+  }
+  
+  .light-theme .empty-state-description {
+    color: #6b7280;
+    max-width: 24rem;
+  }
+  /* Add this to your existing CSS files or create a new one */
+/* Light mode styling for projects page */
+
+/* Section headers with line decoration */
+.light-theme .section-header {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.light-theme .section-header::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  margin-left: 1rem;
+  background: linear-gradient(to right, #3b82f6, rgba(59, 130, 246, 0.1));
+}
+
+/* Console styling */
+.light-theme .console-container {
+  background-color: #0f172a;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme .console-header {
+  display: flex;
+  align-items: center;
+  background-color: #1e293b;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #334155;
+}
+
+.light-theme .console-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.light-theme .console-window-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.light-theme .console-button-red {
+  background-color: #ef4444;
+}
+
+.light-theme .console-button-yellow {
+  background-color: #f59e0b;
+}
+
+.light-theme .console-button-green {
+  background-color: #10b981;
+}
+
+.light-theme .console-title {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-family: monospace;
+  margin-left: 1rem;
+}
+
+.light-theme .console-content {
+  padding: 1rem;
+  height: 400px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: #e2e8f0;
+  background-color: #1e293b;
+}
+
+.light-theme .console-command {
+  color: #94a3b8;
+}
+
+.light-theme .console-success {
+  color: #10b981;
+}
+
+.light-theme .console-error {
+  color: #ef4444;
+}
+
+.light-theme .console-warning {
+  color: #f59e0b;
+}
+
+.light-theme .console-line {
+  margin-bottom: 0.5rem;
+}
+
+/* Project details styling */
+.light-theme .project-details-container {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.light-theme .project-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  padding: 2rem;
+}
+
+.light-theme .project-empty-icon {
+  color: #d1d5db;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.light-theme .project-empty-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+.light-theme .project-empty-description {
+  color: #6b7280;
+  max-width: 25rem;
+}
+
+.light-theme .project-header {
+  padding: 2rem;
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  color: white;
+  position: relative;
+}
+
+.light-theme .project-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.light-theme .project-memory-address {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.75rem;
+  backdrop-filter: blur(4px);
+}
+
+.light-theme .project-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.light-theme .project-tech-tag {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  backdrop-filter: blur(4px);
+}
+
+.light-theme .project-content {
+  padding: 2rem;
+}
+
+.light-theme .project-section {
+  margin-bottom: 2rem;
+}
+
+.light-theme .project-section-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.light-theme .project-description {
+  color: #4b5563;
+  border-left: 2px solid #3b82f6;
+  padding-left: 1rem;
+  line-height: 1.5;
+}
+
+.light-theme .project-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.light-theme .project-link-button {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s;
+}
+
+.light-theme .project-link-primary {
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  color: white;
+}
+
+.light-theme .project-link-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4);
+}
+
+.light-theme .project-link-secondary {
+  background-color: white;
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+}
+
+.light-theme .project-link-secondary:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.light-theme .project-link-icon {
+  margin-right: 0.5rem;
+}
