@@ -1,13 +1,10 @@
 // src/components/Projects/Projects.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../../context/ThemeContext';
-import VisualStack from './VisualStack';
-import Console from './Console';
 
 const Projects = () => {
-  // Add memory addresses to your project data
-  const projectsData = [
+  // Project data with memory addresses
+  const [projects] = useState([
     {
       id: 'project1',
       title: 'Personal Portfolio',
@@ -32,232 +29,148 @@ const Projects = () => {
       github: 'https://github.com/yourusername/taskmanager',
       memoryAddr: '0x7FF1C56D'
     }
-  ];
-
-  // State for projects - this allows adding/removing projects
-  const [projects, setProjects] = useState([...projectsData]);
-  
-  // State for selected project
-  const [selectedProject, setSelectedProject] = useState(null);
-  
-  // State for memory view animation
-  const [isMemoryViewActive, setIsMemoryViewActive] = useState(false);
-  
-  // State for console output
-  const [consoleOutput, setConsoleOutput] = useState([
-    { text: '> Loading project data...', type: 'command' },
-    { text: '> Projects initialized successfully', type: 'success' },
-    { text: '> Select a project from the stack to view details', type: 'command' }
   ]);
-  
-  const { isDarkTheme } = useTheme();
+
+  // Refs
+  const consoleRef = useRef(null);
+
+  // State for selected project and animation
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isMemoryViewActive, setIsMemoryViewActive] = useState(false);
+  const [consoleOutput, setConsoleOutput] = useState([
+    '> Loading project data...',
+    '> Projects initialized successfully',
+    '> Select a project from the stack to view details'
+  ]);
+
+  // Scroll console to bottom when messages are added
+  useEffect(() => {
+    if (consoleRef.current) {
+      consoleRef.current.scrollTop = consoleRef.current.scrollHeight;
+    }
+  }, [consoleOutput]);
 
   // Handle project selection
   const handleProjectSelect = (project) => {
     setSelectedProject(project);
+    setIsMemoryViewActive(true);
     
-    // Add memory scan effect for dark theme
-    if (isDarkTheme) {
-      setIsMemoryViewActive(true);
-      
-      // Add to console output for project selection
-      setConsoleOutput(prev => [
-        ...prev,
-        { text: `> Accessing memory at ${project.memoryAddr}...`, type: 'command' },
-        { text: '> Reading project data...', type: 'command' },
-        { text: `> Project: ${project.title}`, type: 'success' },
-        { text: `> Heap allocation: ${Math.floor(Math.random() * 1000) + 500}KB`, type: 'command' }
-      ]);
-      
-      // Reset memory view animation after delay
-      setTimeout(() => {
-        setIsMemoryViewActive(false);
-      }, 2000);
-    }
-  };
-  
-  // Handle adding a new project (push)
-  const handlePushProject = () => {
-    const name = prompt('Enter project name:');
-    if (name) {
-      const newProject = {
-        id: `project${Date.now()}`,
-        title: name,
-        description: 'New project description',
-        technologies: ['Technology 1', 'Technology 2'],
-        github: 'https://github.com/yourusername/newproject',
-        memoryAddr: `0x${Math.floor(Math.random() * 16777215).toString(16).toUpperCase().padStart(8, '0')}`
-      };
-      
-      // Add to projects array
-      setProjects(prev => [newProject, ...prev]);
-      
-      // Select the new project
-      handleProjectSelect(newProject);
-      
-      // Add to console output
-      setConsoleOutput(prev => [
-        ...prev,
-        { text: `> Project "${name}" pushed to stack`, type: 'success' }
-      ]);
-    }
-  };
-  
-  // Handle removing a project (pop)
-  const handlePopProject = () => {
-    if (projects.length > 0) {
-      const [poppedProject, ...remainingProjects] = projects;
-      
-      // Update projects state
-      setProjects(remainingProjects);
-      
-      // Clear selection if the popped project was selected
-      if (selectedProject && selectedProject.id === poppedProject.id) {
-        setSelectedProject(null);
-      }
-      
-      // Add to console output
-      setConsoleOutput(prev => [
-        ...prev,
-        { text: `> Project "${poppedProject.title}" popped from stack`, type: 'warning' }
-      ]);
-    }
-  };
-  
-  // Memory scan effect component
-  const MemoryScanEffect = () => {
-    return (
-      <AnimatePresence>
-        {isMemoryViewActive && (
-          <motion.div 
-            className="fixed inset-0 bg-green-400/5 pointer-events-none z-20"
-            initial={{ top: '0%', height: '0%' }}
-            animate={{ 
-              top: ['0%', '100%'],
-              height: ['0%', '5%', '0%'],
-              opacity: [0, 0.5, 0]
-            }}
-            transition={{ 
-              duration: 2,
-              times: [0, 0.9, 1],
-              ease: "easeInOut"
-            }}
-            exit={{ opacity: 0 }}
-          />
-        )}
-      </AnimatePresence>
-    );
-  };
-
-  // Binary decoration component for memory view
-  const BinaryBackground = () => {
-    return (
-      <div className="absolute inset-0 overflow-hidden opacity-10 pointer-events-none z-0">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <div key={i} className="text-green-400 font-mono text-xs" style={{ 
-            position: 'absolute', 
-            top: `${i * 10}%`, 
-            left: `${Math.random() * 100}%` 
-          }}>
-            {Array.from({ length: 8 }).map((_, j) => (
-              <span key={j}>{Math.round(Math.random())}</span>
-            ))}
-          </div>
-        ))}
-      </div>
-    );
+    // Update console output
+    setConsoleOutput(prev => [
+      ...prev,
+      `> Accessing memory at ${project.memoryAddr}...`,
+      `> Reading project data...`,
+      `> Project: ${project.title}`,
+      `> Heap allocation: ${Math.floor(Math.random() * 1000) + 500}KB`
+    ]);
+    
+    // Reset memory view animation after delay
+    setTimeout(() => {
+      setIsMemoryViewActive(false);
+    }, 2000);
   };
 
   return (
     <div>
-      {/* Memory scan effect (only in dark mode) */}
-      {isDarkTheme && <MemoryScanEffect />}
-      
-      <motion.div 
-        className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* PROJECT STACK - left column */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
+        {/* PROJECT STACK */}
         <div className="lg:col-span-5">
-          <h2 className="text-green-400 text-lg mb-4 flex items-center">
-            <span className="mr-2">&#123;</span>PROJECT STACK<span className="ml-2">&#125;</span>
-          </h2>
+          <h2 className="text-green-400 text-lg mb-4">{'{PROJECT STACK}'}</h2>
           
-          <VisualStack 
-            projects={projects} 
-            selectedProject={selectedProject} 
-            onProjectSelect={handleProjectSelect} 
-          />
+          <div className="border border-green-400/20 relative h-96 bg-black overflow-hidden">
+            {/* Stack header */}
+            <div className="border-b border-green-400/20 p-2 pl-4 bg-black/40">
+              <div className="text-green-400 font-bold">STACK</div>
+            </div>
+            
+            {/* Project stack items */}
+            <div className="space-y-0">
+              {projects.map((project) => (
+                <div 
+                  key={project.id}
+                  className={`
+                    border-b border-green-400/20 bg-black cursor-pointer transition-colors
+                    ${selectedProject?.id === project.id ? 'bg-green-900/10' : ''}
+                    hover:bg-green-900/10
+                  `}
+                  onClick={() => handleProjectSelect(project)}
+                >
+                  <div className="p-4 pr-28 relative">
+                    <div className="text-green-400 font-bold mb-1">{project.title}</div>
+                    <div className="text-green-400/70 text-sm">{project.technologies.join(', ')}</div>
+                    <div className="absolute top-0 right-0 p-4 text-green-400/40 text-xs">
+                      {project.memoryAddr}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
         
-        {/* CONSOLE - right column */}
+        {/* CONSOLE */}
         <div className="lg:col-span-7">
-          <h2 className="text-green-400 text-lg mb-4 flex items-center">
-            <span className="mr-2">&#123;</span>CONSOLE<span className="ml-2">&#125;</span>
-          </h2>
+          <h2 className="text-green-400 text-lg mb-4">{'{CONSOLE}'}</h2>
           
-          <Console 
-            consoleOutput={consoleOutput} 
-            selectedProject={selectedProject} 
-          />
+          <div 
+            ref={consoleRef}
+            className="border border-green-400/20 p-4 h-96 overflow-y-auto bg-black font-mono relative"
+          >
+            {/* Console content */}
+            <div className="space-y-1">
+              {consoleOutput.map((line, index) => (
+                <div key={index} className="text-green-400">
+                  {line}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </motion.div>
+      </div>
       
       {/* PROJECT DETAILS */}
-      <motion.div 
-        className="mt-12"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-      >
-        <h2 className="text-green-400 text-lg mb-4 flex items-center">
-          <span className="mr-2">&#123;</span>PROJECT DETAILS<span className="ml-2">&#125;</span>
-        </h2>
+      <div className="mt-12">
+        <h2 className="text-green-400 text-lg mb-4">{'{PROJECT DETAILS}'}</h2>
         
-        <div className="border border-green-500/30 p-6 bg-black relative overflow-hidden">
-          {isDarkTheme && <BinaryBackground />}
-          
-          {/* Memory selection animation */}
-          <AnimatePresence>
-            {isMemoryViewActive && isDarkTheme && selectedProject && (
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+        <div className="border border-green-400/20 p-6 bg-black relative min-h-[200px]">
+          <AnimatePresence mode="wait">
+            {isMemoryViewActive ? (
+              // Memory access in progress
+              <motion.div 
+                key="memory-access"
+                className="absolute inset-0 flex items-center justify-center z-10 bg-black"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                <motion.div 
-                  className="text-center"
-                  initial={{ opacity: 0, scale: 1.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.7 }}
-                >
-                  <div className="text-4xl text-green-400 font-mono font-bold mb-2">
-                    MEMORY ACCESS
+                <div className="text-center">
+                  <div className="text-4xl text-green-400 font-bold mb-2">MEMORY ACCESS</div>
+                  <div className="text-xl text-green-400/70 mb-4">
+                    {selectedProject?.memoryAddr} → {selectedProject?.title}
                   </div>
-                  <div className="text-xl text-green-400/70 font-mono">
-                    {selectedProject.memoryAddr} → {selectedProject.title}
+                  <div className="text-green-400/50 text-sm mt-4 h-1 w-48 mx-auto bg-black overflow-hidden relative">
+                    <div 
+                      className="absolute top-0 left-0 h-full bg-green-400/70"
+                      style={{
+                        width: '100%',
+                        animation: 'scanProgress 2s linear'
+                      }}
+                    ></div>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
-            )}
-          </AnimatePresence>
-          
-          {/* Project Details Content */}
-          <div className={`transition-opacity duration-300 ${isMemoryViewActive ? 'opacity-0' : 'opacity-100'}`}>
-            {selectedProject ? (
+            ) : selectedProject ? (
+              // Project details
               <motion.div
+                key="project-details" 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                key={selectedProject.id}
               >
                 <div className="flex justify-between items-start mb-6">
                   <h3 className="text-green-400 font-bold text-xl">{selectedProject.title}</h3>
-                  <div className="text-green-400/50 text-xs font-mono border border-green-400/30 px-2 py-1">
+                  <div className="text-green-400/50 text-xs border border-green-400/30 px-2 py-1">
                     {selectedProject.memoryAddr}
                   </div>
                 </div>
@@ -270,11 +183,11 @@ const Projects = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <div className="text-green-400/70 font-bold text-sm mb-2">TECHNOLOGIES:</div>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1">
                       {selectedProject.technologies.map((tech, index) => (
                         <span 
-                          key={index}
-                          className="text-green-400 bg-green-400/10 border border-green-400/30 px-2 py-1 text-sm"
+                          key={index} 
+                          className="text-green-400 bg-black border border-green-400/30 px-2 py-1 text-sm"
                         >
                           {tech}
                         </span>
@@ -290,43 +203,56 @@ const Projects = () => {
                       rel="noopener noreferrer" 
                       className="text-green-400 hover:underline flex items-center"
                     >
-                      <span className="mr-2">&#60;/&#62;</span> View Source Code
+                      <span className="mr-2">&#60;/&#62;</span>View Source Code
                     </a>
                   </div>
                 </div>
                 
-                {/* Memory hexdump visualization - only in dark theme */}
-                {isDarkTheme && (
-                  <div className="mt-8 border-t border-green-400/20 pt-4">
-                    <div className="text-green-400/70 font-bold text-sm mb-2">MEMORY DUMP:</div>
-                    <div className="font-mono text-xs overflow-x-auto bg-black/50 p-3 border border-green-400/10">
-                      {Array.from({ length: 4 }).map((_, rowIndex) => (
-                        <div key={rowIndex} className="flex">
-                          <div className="text-green-400/50 mr-4 w-20">
-                            {(parseInt(selectedProject.memoryAddr.substring(2), 16) + rowIndex * 16).toString(16).toUpperCase().padStart(8, '0')}:
-                          </div>
-                          <div className="text-green-400/80 space-x-2">
-                            {Array.from({ length: 16 }).map((_, colIndex) => (
-                              <span key={colIndex}>
-                                {Math.floor(Math.random() * 256).toString(16).padStart(2, '0')}
-                              </span>
-                            ))}
-                          </div>
+                {/* Memory dump visualization */}
+                <div className="mt-8 border-t border-green-400/20 pt-4">
+                  <div className="text-green-400/70 font-bold text-sm mb-2">MEMORY DUMP:</div>
+                  <div className="font-mono text-xs overflow-x-auto bg-black p-3 border border-green-400/10">
+                    {[...Array(4)].map((_, rowIndex) => (
+                      <div key={rowIndex} className="flex">
+                        <div className="text-green-400/50 mr-4 w-20">
+                          {(parseInt(selectedProject.memoryAddr.substring(2), 16) + rowIndex * 16).toString(16).toUpperCase().padStart(8, '0')}:
                         </div>
-                      ))}
-                    </div>
+                        <div className="text-green-400/80 space-x-2">
+                          {[...Array(16)].map((_, colIndex) => (
+                            <span key={colIndex}>
+                              {Math.floor(Math.random() * 256).toString(16).padStart(2, '0')}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                )}
+                </div>
               </motion.div>
             ) : (
-              <div className="text-green-400/50 text-center py-10 border border-green-400/10 bg-black/30">
-                <div className="text-xl mb-2">NO PROJECT SELECTED</div>
-                <div className="text-sm">Select a project from the stack to view details</div>
-              </div>
+              // No project selected
+              <motion.div
+                key="no-project"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center justify-center py-16"
+              >
+                <div className="text-green-400/50 text-2xl mb-2">NO PROJECT SELECTED</div>
+                <div className="text-green-400/30">Select a project from the stack to view details</div>
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
         </div>
-      </motion.div>
+      </div>
+      
+      {/* Add CSS for memory scan animation */}
+      <style jsx>{`
+        @keyframes scanProgress {
+          0% { left: -100%; }
+          100% { left: 100%; }
+        }
+      `}</style>
     </div>
   );
 };
