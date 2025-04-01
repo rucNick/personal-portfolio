@@ -169,7 +169,7 @@ const ProjectDetails = ({ project, isMemoryViewActive }) => {
                   </a>
                   
                   <a 
-                    href="#" 
+                    href="hhh" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="project-link-button project-link-secondary"

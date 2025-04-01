@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 
 const VisualStack = ({ projects, selectedProject, onProjectSelect }) => {
-  const { isDarkTheme } = useTheme();
+  useTheme();
   
   return (
     <div className="border rounded-lg overflow-hidden bg-white shadow-sm">

@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Skill from '../Skill/Skill';
 import About from '../About/About';
 import { useTheme } from '../../context/ThemeContext';
-
 // Matrix Digital Rain component
 const MatrixRain = () => {
   const canvasRef = useRef(null);
@@ -137,9 +136,8 @@ const GlitchText = ({ text, className }) => {
   
   useEffect(() => {
     startGlitchEffect();
-    
     return () => clearInterval(intervalRef.current);
-  }, [text]);
+  },);
   
   return (
     <span 

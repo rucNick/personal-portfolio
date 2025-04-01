@@ -1,6 +1,6 @@
 // src/components/Projects/Projects.js
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../../context/ThemeContext';
 import VisualStack from './VisualStack';
 import Console from './Console';
@@ -49,7 +49,7 @@ const Projects = () => {
   ];
   
   // State for projects
-  const [projects, setProjects] = useState(projectsData);
+  const [projects] = useState(projectsData);
   
   // State for selected project
   const [selectedProject, setSelectedProject] = useState(null);

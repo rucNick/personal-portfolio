@@ -1,6 +1,5 @@
 // src/components/Projects/Console.js
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 
 const Console = ({ consoleOutput, selectedProject }) => {
