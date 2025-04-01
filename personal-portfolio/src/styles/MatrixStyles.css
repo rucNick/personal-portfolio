@@ -439,3 +439,160 @@ body.dark-theme {
     box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
   }
 }
+
+/* Add these styles to your src/styles/MatrixStyles.css file */
+
+/* Dark mode console styling */
+.console-container-dark {
+  background-color: #000000;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.console-header-dark {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 20, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.console-title-dark {
+  color: rgba(0, 255, 0, 0.7);
+  font-size: 0.75rem;
+  font-family: monospace;
+  margin-left: 1rem;
+}
+
+.console-content-dark {
+  padding: 1rem;
+  height: 400px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: #4ade80;
+  background-color: rgba(0, 10, 0, 0.8);
+  position: relative;
+}
+
+.console-line-dark {
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+/* Improve the visibility of the scanline effect */
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 255, 0, 0.05) 50%
+  );
+  background-size: 100% 4px;
+  animation: scanlines 4s steps(60) infinite;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Add these styles to your src/styles/MatrixStyles.css file */
+
+/* Theme transition overlay animation */
+#theme-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  z-index: 9999;
+  pointer-events: none;
+  transform-origin: top;
+  transition: height 0.6s ease-in-out;
+}
+
+.dark-theme #theme-transition-overlay {
+  background-color: #ffffff;
+}
+
+.light-theme #theme-transition-overlay {
+  background-color: #000000;
+}
+
+/* Improve memory scan animation */
+.memory-scan {
+  height: 5px !important;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 255, 0, 0) 0%,
+    rgba(0, 255, 0, 0.7) 50%,
+    rgba(0, 255, 0, 0) 100%
+  ) !important;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+}
+
+@keyframes memory-scan-animation {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* Console controls consistency in both themes */
+.console-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.console-window-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.console-button-red {
+  background-color: #ef4444;
+}
+
+.console-button-yellow {
+  background-color: #f59e0b;
+}
+
+.console-button-green {
+  background-color: #10b981;
+}
+
+/* Enhanced memory scan overlay for dark mode */
+.memory-scan-overlay {
+  background-color: rgba(0, 20, 0, 0.7);
+  backdrop-filter: blur(2px);
+}
+
+/* Ensuring smooth transitions for all components */
+.navbar-link,
+.section-header,
+.project-card,
+.console-container,
+.console-container-dark,
+.project-details-container,
+.text-green-400,
+.text-slate-800,
+.bg-black,
+.bg-white {
+  transition: all 0.6s ease;
+}

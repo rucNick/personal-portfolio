@@ -46,31 +46,31 @@ const Console = ({ consoleOutput, selectedProject }) => {
   };
   
   return (
-    <div className={isDarkTheme ? "" : "console-container"}>
-      {/* Terminal header - only in light mode */}
-      {!isDarkTheme && (
-        <div className="console-header">
-          <div className="console-controls">
-            <div className="console-window-button console-button-red"></div>
-            <div className="console-window-button console-button-yellow"></div>
-            <div className="console-window-button console-button-green"></div>
-          </div>
-          <div className="console-title">terminal@portfolio:~$</div>
+    <div className={isDarkTheme ? "console-container-dark" : "console-container"}>
+      {/* Terminal header - for both themes */}
+      <div className={isDarkTheme ? "console-header-dark" : "console-header"}>
+        <div className="console-controls">
+          <div className="console-window-button console-button-red"></div>
+          <div className="console-window-button console-button-yellow"></div>
+          <div className="console-window-button console-button-green"></div>
         </div>
-      )}
+        <div className={isDarkTheme ? "console-title-dark" : "console-title"}>
+          terminal@portfolio:~$
+        </div>
+      </div>
       
       {/* Console content */}
       <div 
         ref={consoleRef}
         className={isDarkTheme 
-          ? "border border-green-400/20 p-4 h-[500px] overflow-y-auto bg-black font-mono relative" 
+          ? "console-content-dark" 
           : "console-content"
         }
       >
         {/* Console messages */}
         <div className="space-y-1">
           {consoleOutput.map((line, index) => (
-            <div key={index} className={`${isDarkTheme ? "" : "console-line"} ${getLineClass(line)}`}>
+            <div key={index} className={`${isDarkTheme ? "console-line-dark" : "console-line"} ${getLineClass(line)}`}>
               {typeof line === 'string' ? line : line.text}
             </div>
           ))}
@@ -79,7 +79,7 @@ const Console = ({ consoleOutput, selectedProject }) => {
         {/* Blinking cursor */}
         <div className="flex items-center mt-1">
           <span className={isDarkTheme ? "text-green-400 mr-2" : "text-gray-300 mr-2"}>
-            {isDarkTheme ? "" : "$"}
+            {isDarkTheme ? ">" : "$"}
           </span>
           <span 
             className={`h-4 w-2 ${isDarkTheme ? 'bg-green-400' : 'bg-gray-300'} ${cursorVisible ? 'opacity-100' : 'opacity-0'} transition-opacity`}

@@ -57,6 +57,9 @@ const Projects = () => {
   // State for memory view animation
   const [isMemoryViewActive, setIsMemoryViewActive] = useState(false);
   
+  // NEW: State to control when to show project details
+  const [showProjectDetails, setShowProjectDetails] = useState(true);
+  
   // State for console output
   const [consoleOutput, setConsoleOutput] = useState([
     { text: '> Loading project data...', type: 'command' },
@@ -68,6 +71,10 @@ const Projects = () => {
 
   // Handle project selection
   const handleProjectSelect = (project) => {
+    // Hide project details first
+    setShowProjectDetails(false);
+    
+    // Set the selected project
     setSelectedProject(project);
     
     // Add memory scan effect for dark theme
@@ -86,6 +93,8 @@ const Projects = () => {
       // Reset memory view animation after delay
       setTimeout(() => {
         setIsMemoryViewActive(false);
+        // Show project details after animation completes
+        setShowProjectDetails(true);
       }, 2000);
     } else {
       // Light mode console output
@@ -94,6 +103,11 @@ const Projects = () => {
         { text: `> Loading project: ${project.title}`, type: 'command' },
         { text: `> Project loaded successfully`, type: 'success' }
       ]);
+      
+      // For light mode, show details after a shorter delay
+      setTimeout(() => {
+        setShowProjectDetails(true);
+      }, 300);
     }
   };
   
@@ -228,11 +242,22 @@ const Projects = () => {
             )}
           </AnimatePresence>
           
-          {/* Project Details Component */}
-          <ProjectDetails 
-            project={selectedProject} 
-            isMemoryViewActive={isMemoryViewActive} 
-          />
+          {/* Project Details Component - Now conditionally rendered */}
+          <AnimatePresence>
+            {showProjectDetails && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <ProjectDetails 
+                  project={selectedProject} 
+                  isMemoryViewActive={isMemoryViewActive} 
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
